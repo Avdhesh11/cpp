@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void mergeFn(vector<int>& v,int l,int mid,int r){
+    vector<int> temp(v.size(),0);
+    int i=l,j=mid+1,k=l;
+    while(i<=mid&&j<=r){
+        if(v[i]<=v[j]){
+            temp[k]=v[i];
+            i++,k++;
+        }
+        else{
+           temp[k]=v[j];
+            j++,k++;
+        }
+    }
+    while(i<=mid){
+        temp[k]=v[i];
+        i++,k++;
+    }
+    while(j<=r){
+        temp[k]=v[j];
+        j++,k++;
+    }
+    for(int i=l;i<=r;i++){
+        v[i]=temp[i];
+    }
+}
+void mergeSort(vector<int>& v,int l,int r){
+    if(l<r){
+        int mid=(l+r)/2;
+        mergeSort(v,l,mid);
+        mergeSort(v,mid+1,r);
+        mergeFn(v,l,mid,r);
+    }
+}
+int main(){
+    int n;
+    cin>>n;
+    vector<int> v(n,0);
+    for(int i=0;i<n;i++){
+        cin>>v[i];
+    }
+
+    mergeSort(v,0,n-1);
+
+    for(int i=0;i<n;i++){
+        cout<<v[i]<<" ";
+    }
+    return 0;
+}
