@@ -1,0 +1,69 @@
+class Solution {
+public:
+    long long int mod=1000000007;
+    long long int solve(vector<int> adj[],int i,int j,vector<vector<long long int>>& dp,int n,int m){
+        if(j==0){
+            return 1;
+        }
+       
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        
+        long long int ans=0;
+        for(int k=0;k<adj[i].size();k++){
+            ans=(ans%mod+solve(adj,adj[i][k],j-1,dp,n,m)%mod)%mod;
+        }
+        return dp[i][j]=ans;
+    }
+    int colorTheGrid(int m, int n) {
+        vector<string> temp={"r","g","b"};
+        for(int i=1;i<m;i++){
+            vector<string> temp1;
+            for(int j=0;j<temp.size();j++){
+                if(temp[j][temp[j].size()-1]=='r'){
+                    temp1.push_back(temp[j]+"g");
+                    temp1.push_back(temp[j]+"b");
+                }
+                if(temp[j][temp[j].size()-1]=='g'){
+                    temp1.push_back(temp[j]+"r");
+                    temp1.push_back(temp[j]+"b");
+                }
+                if(temp[j][temp[j].size()-1]=='b'){
+                    temp1.push_back(temp[j]+"g");
+                    temp1.push_back(temp[j]+"r");
+                }
+            }
+            temp=temp1;
+        }
+        
+       int size=temp.size();
+        vector<int> adj[size+1];
+        for(int i=0;i<size;i++){
+            for(int j=0;j<size;j++){
+                if(i==j){
+                    continue;
+                }
+                else{
+                    bool isVal=true;
+                    for(int k=0;k<m;k++){
+                        if(temp[i][k]==temp[j][k]){
+                            isVal=false;
+                            break;
+                        }
+                    }
+                    if(isVal==true){
+                        adj[i].push_back(j);
+                    }
+                }
+            }
+        }
+        
+        vector<vector<long long int>> dp(size,vector<long long int>(n,-1));
+        long long int ans=0;
+        for(int i=0;i<size;i++){
+            ans=(ans%mod+solve(adj,i,n-1,dp,size,n)%mod)%mod;
+        }
+        return ans;
+    }
+};
