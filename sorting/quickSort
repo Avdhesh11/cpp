@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int partitionFn(vector<int>& v,int l,int r){
+    int pivot=l;
+    int s=l;
+    int e=r;
+    while(s<e){
+        while(v[s]<=v[pivot]){
+            s++;
+        }
+        while(v[e]>v[pivot]){
+            e--;
+        }
+        if(s<e){
+            swap(v[s],v[e]);
+        }
+    }
+    swap(v[l],v[e]);
+    return e;
+}
+void quickSort(vector<int>& v,int l,int r){
+    if(l<r){
+        int loc=partitionFn(v,l,r);
+        quickSort(v,l,loc-1);
+        quickSort(v,loc+1,r);
+    }
+}
+int main(){
+    int n;
+    cin>>n;
+    vector<int> v(n,0);
+    for(int i=0;i<n;i++){
+        cin>>v[i];
+    }
+
+    quickSort(v,0,n-1);
+
+    for(int i=0;i<n;i++){
+        cout<<v[i]<<" ";
+    }
+    return 0;
+}
