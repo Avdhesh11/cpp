@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void selectionSort(vector<int>& v,int n){
+    for(int i=0;i<n;i++){
+       int minEle=INT_MAX,minInd=-1;
+       for(int j=i;j<n;j++){
+        if(v[j]<minEle){
+            minEle=v[j];
+            minInd=j;
+        }
+       }
+       swap(v[i],v[minInd]);
+    }
+}
+
+int main(){
+    int n;
+    cin>>n;
+    vector<int> v(n,0);
+    for(int i=0;i<n;i++){
+        cin>>v[i];
+    }
+
+    selectionSort(v,n);
+
+    for(int i=0;i<n;i++){
+        cout<<v[i]<<" ";
+    }
+    return 0;
+}
