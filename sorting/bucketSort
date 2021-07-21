@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void bucketSort(vector<float>& v,int n){
+    vector<float> b[n];
+    for(int i=0;i<n;i++){
+        int pos=n*v[i];
+        b[pos].push_back(v[i]);
+    }
+    for(int i=0;i<n;i++){
+        sort(b[i].begin(),b[i].end());
+    }
+    int k=0;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<b[i].size();j++){
+            v[k]=b[i][j];
+            k++;
+        }
+    }
+
+}
+
+int main(){
+    int n;
+    cin>>n;
+    vector<float> v(n,0);
+    for(int i=0;i<n;i++){
+        cin>>v[i];
+    }
+
+    bucketSort(v,n);
+
+    for(int i=0;i<n;i++){
+        cout<<v[i]<<" ";
+    }
+    return 0;
+}
+
