@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void shellSort(vector<int>& v,int n){
+   for(int gap=n/2;gap>=1;gap/=2){
+    for(int i=gap;i<n;i++){
+        for(int j=i-gap;j>=0;j-=gap){
+            if(v[j]>v[j+gap]){
+                swap(v[j],v[j+gap]);
+            }
+        }
+    }
+   }
+}
+int main(){
+    int n;
+    cin>>n;
+    vector<int> v(n,0);
+    for(int i=0;i<n;i++){
+        cin>>v[i];
+    }
+
+    shellSort(v,n);
+
+    for(int i=0;i<n;i++){
+        cout<<v[i]<<" ";
+    }
+    return 0;
+}
