@@ -2,8 +2,24 @@ class Solution {
   public:
     int safePos(int n, int k) {
         if(n==1){
-            return n;
+            return 1;
         }
         return (safePos(n-1,k)+k-1)%n+1;
     }
 };
+
+
+////////////////////////////////
+delete every alternating element
+
+int  josephusSpec(int n){
+    int p=0;
+    int val=1;
+    while((val*2)<=n){
+        p++;
+        val*=2;
+    }
+    int l=n-val;
+    return 2*l+1;
+
+}
