@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+
+class HashMap{
+    private:
+        int len=10;
+        vector<string> hashTable[11];
+
+    public:
+        bool isEmpty(){
+            for(int i=0;i<len;i++){
+                if(hashTable[i].size()!=0){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        void insertFun(int key,string value){
+            key=key%len;
+            hashTable[key].push_back(value);
+        }
+
+        void deleteFun(int key){
+            key=key%len;
+            hashTable[key].clear();
+        }
+
+        vector<string> get(int key){
+            key=key%len;
+            return hashTable[key];
+        }
+};
+
+int main(){
+
+    HashMap h;
+    h.insertFun(1,"apple");
+    h.insertFun(3,"banana");
+    h.insertFun(5,"strawberry");
+    h.deleteFun(5);
+    h.insertFun(3,"orange");
+
+    vector<string> vec=h.get(3);
+    for(int i=0;i<vec.size();i++){
+        cout<<vec[i]<<" ";
+    }
+    return 0;
+}
