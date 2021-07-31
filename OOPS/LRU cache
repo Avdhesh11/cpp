@@ -1,0 +1,40 @@
+ class LRU{
+    private:
+    int capacity;
+    list<pair<int,int>> cache;
+    map<int,list<pair<int,int>>::iterator> mp;
+    
+    public:
+     LRUCache(int capacity) {
+        this->capacity=capacity;
+    }
+    void reorderlist(int key,int val){
+        cache.erase(mp[key]);
+        cache.push_front({key,val});
+        mp[key]=cache.begin();
+    }
+    
+    int get(int key) {
+        if(mp.find(key)!=mp.end()){
+            reorderlist(key,(*mp[key]).second);
+            return (*mp[key]).second;
+        }
+        return -1;
+    }
+    
+    void put(int key, int value) {
+        if(mp.find(key)!=mp.end()){
+            reorderlist(key,value);
+        }
+        else{
+            cache.push_front({key,value});
+            mp[key]=cache.begin();
+            if(capacity<cache.size()){
+                mp.erase(cache.back().first);
+                cache.pop_back();
+            }
+        }
+    }
+     
+ };
+    
