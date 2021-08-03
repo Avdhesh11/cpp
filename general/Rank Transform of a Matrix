@@ -1,3 +1,5 @@
+//video solution- https://www.youtube.com/watch?v=-sd55qo_8Zg
+
 class Solution {
 public:
     pair<int,int> par[501][501];
