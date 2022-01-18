@@ -1,43 +1,32 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int partitionFn(vector<int>& v,int l,int r){
-    int pivot=l;
-    int s=l;
-    int e=r;
-    while(s<e){
-        while(v[s]<=v[pivot]){
-            s++;
-        }
-        while(v[e]>v[pivot]){
-            e--;
-        }
-        if(s<e){
-            swap(v[s],v[e]);
+int partition(vector<int>& v,int l,int r){
+    int pivot=rand()%(r-l+1)+l;
+    int start=l,end=r;
+    swap(v[pivot],v[l]);
+    while(start<end){
+        while(start<v.size()&&v[start]<=v[l]) start++;
+        while(end>=0&&v[end]>v[l]) end--;
+        if(start<end){
+            swap(v[start],v[end]);
         }
     }
-    swap(v[l],v[e]);
-    return e;
+    swap(v[l],v[end]);
+    return end;
 }
-void quickSort(vector<int>& v,int l,int r){
+void quicksort(vector<int>& v,int l,int r){
     if(l<r){
-        int loc=partitionFn(v,l,r);
-        quickSort(v,l,loc-1);
-        quickSort(v,loc+1,r);
+        int pt=partition(v,l,r);
+        quicksort(v,l,pt-1);
+        quicksort(v,pt+1,r);
     }
 }
-int main(){
-    int n;
-    cin>>n;
-    vector<int> v(n,0);
-    for(int i=0;i<n;i++){
-        cin>>v[i];
-    }
-
-    quickSort(v,0,n-1);
-
+int main() {
+    vector<int> v={2,5,1,5,0,4,1,8,-1,10,33,2};
+    int n=v.size();
+    quicksort(v,0,n-1);
     for(int i=0;i<n;i++){
         cout<<v[i]<<" ";
     }
-    return 0;
 }
